@@ -1,1 +1,6 @@
-test
+feat(order): generate UUID on client-side and send with order insert
+
+- Orders are now assigned UUIDs in the browser using crypto.randomUUID()
+- Ensures that users cannot access or guess others' order IDs
+- Removed .select('id') after insert, as UUID is now controlled by the frontend
+- Improved frontend/backend separation and security for anonymous submissions
