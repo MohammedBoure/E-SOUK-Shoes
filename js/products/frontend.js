@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const isProductsPage = window.location.pathname.includes('products.html') || window.location.pathname.endsWith('/');
   const isIndexPage = window.location.pathname.includes('index.html');
 
-
   function checkFormValidity() {
       let isFormValid = true;
       const errors = [];
@@ -33,20 +32,36 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       const customerName = document.getElementById('customer_name')?.value.trim();
-      const size = document.getElementById('size')?.value;
-      const color = document.getElementById('color')?.value;
+      const sizeInput = document.getElementById('size');
+      const colorInput = document.getElementById('color');
+      const size = sizeInput?.value;
+      const color = colorInput?.value;
       
       if (!customerName) {
         isFormValid = false;
         showNotification('اسم الزبون مطلوب', 'error');
       }
-      if (!size) {
+      
+      // Validate size and color only if there are multiple options available
+      const hasSizeOptions = selectedProduct?.sizes?.length > 1; // أكثر من خيار واحد
+      const hasColorOptions = selectedProduct?.colors?.length > 1;
+      
+      if (hasSizeOptions && !size) {
         isFormValid = false;
         showNotification('حجم الحذاء مطلوب', 'error');
+        sizeInput?.classList.add('is-invalid');
+      } else if (sizeInput) {
+        sizeInput.classList.remove('is-invalid');
+        sizeInput.classList.add('is-valid');
       }
-      if (!color) {
+      
+      if (hasColorOptions && !color) {
         isFormValid = false;
         showNotification('لون الحذاء مطلوب', 'error');
+        colorInput?.classList.add('is-invalid');
+      } else if (colorInput) {
+        colorInput.classList.remove('is-invalid');
+        colorInput.classList.add('is-valid');
       }
       
       const submitBtn = document.getElementById('submitBtn');
@@ -60,9 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
           submitBtn.classList.add('btn-secondary');
         }
       }
-    }
+  }
 
-  // Animation utilities
   const animateElement = (element, animation, duration = 300) => {
     element.style.animation = `${animation} ${duration}ms ease-in-out`;
     setTimeout(() => {
@@ -525,35 +539,65 @@ document.addEventListener('DOMContentLoaded', function() {
     sizeButtonsContainer.innerHTML = '';
     colorButtonsContainer.innerHTML = '';
 
-    // Populate size buttons
-    selectedProduct.sizes.forEach(size => {
+    // Handle sizes
+    if (!selectedProduct.sizes || selectedProduct.sizes.length === 0) {
+      sizeButtonsContainer.style.display = 'none';
+      if (sizeInput) sizeInput.value = '';
+    } else if (selectedProduct.sizes.length === 1) {
+      sizeInput.value = selectedProduct.sizes[0];
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = 'option-button';
-      button.textContent = size;
-      button.addEventListener('click', () => {
-        sizeButtonsContainer.querySelectorAll('.option-button').forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        sizeInput.value = size;
-        checkFormValidity();
-      });
+      button.className = 'option-button active';
+      button.textContent = selectedProduct.sizes[0];
+      button.disabled = true;
       sizeButtonsContainer.appendChild(button);
-    });
+    } else {
+      sizeButtonsContainer.style.display = '';
+      selectedProduct.sizes.forEach(size => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'option-button';
+        button.textContent = size;
+        button.addEventListener('click', () => {
+          sizeButtonsContainer.querySelectorAll('.option-button').forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          sizeInput.value = size;
+          checkFormValidity();
+        });
+        sizeButtonsContainer.appendChild(button);
+      });
+    }
 
-    // Populate color buttons
-    selectedProduct.colors.forEach(color => {
+    // Handle colors
+    if (!selectedProduct.colors || selectedProduct.colors.length === 0) {
+      colorButtonsContainer.style.display = 'none';
+      if (colorInput) colorInput.value = '';
+    } else if (selectedProduct.colors.length === 1) {
+      colorInput.value = selectedProduct.colors[0];
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = 'color-button';
-      button.style.backgroundColor = color;
-      button.addEventListener('click', () => {
-        colorButtonsContainer.querySelectorAll('.color-button').forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        colorInput.value = color;
-        checkFormValidity();
-      });
+      button.className = 'color-button active';
+      button.style.backgroundColor = selectedProduct.colors[0];
+      button.disabled = true;
       colorButtonsContainer.appendChild(button);
-    });
+    } else {
+      colorButtonsContainer.style.display = '';
+      selectedProduct.colors.forEach(color => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'color-button';
+        button.style.backgroundColor = color;
+        button.addEventListener('click', () => {
+          colorButtonsContainer.querySelectorAll('.color-button').forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          colorInput.value = color;
+          checkFormValidity();
+        });
+        colorButtonsContainer.appendChild(button);
+      });
+    }
+
+    checkFormValidity();
   }
 
   function setupEnhancedCarousel(images) {
@@ -577,7 +621,6 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Create main carousel images
     images.forEach((imgSrc, index) => {
       const slide = document.createElement('div');
       slide.className = `carousel-item ${index === 0 ? 'active' : ''}`;
@@ -587,18 +630,13 @@ document.addEventListener('DOMContentLoaded', function() {
                class="d-block w-100 product-image" 
                alt="${selectedProduct.name} - صورة ${index + 1}"
                loading="lazy"
+               onclick="openImageModal('${imgSrc}')"
                onerror="this.parentElement.innerHTML='<div class=\\'no-image-placeholder\\'><i class=\\'fas fa-image\\'></i><p>خطأ في تحميل الصورة</p></div>'">
-          <div class="image-overlay">
-            <button class="zoom-btn" onclick="openImageModal('${imgSrc}')">
-              <i class="fas fa-search-plus"></i>
-            </button>
-          </div>
           <div class="image-count">${index + 1}/${images.length}</div>
         </div>
       `;
       carouselImages.appendChild(slide);
 
-      // Create carousel indicators
       const indicator = document.createElement('button');
       indicator.type = 'button';
       indicator.setAttribute('data-bs-target', '#carousel');
@@ -608,7 +646,6 @@ document.addEventListener('DOMContentLoaded', function() {
       carouselIndicators.appendChild(indicator);
     });
 
-    // Create thumbnails
     const thumbnailsContainer = document.createElement('div');
     thumbnailsContainer.className = 'carousel-thumbnails';
     images.forEach((imgSrc, index) => {
@@ -628,7 +665,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     carouselImages.after(thumbnailsContainer);
 
-    // Initialize Bootstrap carousel
     const carouselElement = document.querySelector('#carousel');
     if (carouselElement && !bootstrap.Carousel.getInstance(carouselElement)) {
       new bootstrap.Carousel(carouselElement, {
@@ -685,120 +721,6 @@ document.addEventListener('DOMContentLoaded', function() {
         </button>
       </div>
     `;
-
-    if (!document.querySelector('#modal-styles')) {
-      const styles = document.createElement('style');
-      styles.id = 'modal-styles';
-      styles.textContent = `
-        .image-modal {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 10000;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(0,0,0,0.7);
-        }
-        .modal-backdrop {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100vw;
-          height: 100vh;
-          z-index: 1;
-          background: transparent;
-        }
-        .modal-content {
-          position: relative;
-          max-width: 90vw;
-          max-height: 90vh;
-          z-index: 2;
-          background: none;
-          box-shadow: none;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .modal-content img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          border-radius: 4px;
-          border: 1px solid #ddd;
-          background: #fff;
-        }
-        .modal-close {
-          position: absolute;
-          top: -30px;
-          right: 0;
-          background: #fff;
-          border: 1px solid #ddd;
-          width: 30px;
-          height: 30px;
-          border-radius: 4px;
-          color: #333;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          z-index: 3;
-        }
-        .modal-close:hover {
-          background: #f5f5f5;
-        }
-        .image-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0,0,0,0.5);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          opacity: 0;
-          transition: all 0.3s ease;
-        }
-        .image-container:hover .image-overlay {
-          opacity: 1;
-        }
-        .zoom-btn {
-          background: #fff;
-          border: 1px solid #ddd;
-          width: 40px;
-          height: 40px;
-          border-radius: 4px;
-          color: #333;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-        .zoom-btn:hover {
-          background: #f5f5f5;
-        }
-        .no-image-placeholder {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 100%;
-          background: #f5f5f5;
-          color: #666;
-        }
-        .no-image-placeholder i {
-          font-size: 3rem;
-          margin-bottom: 1rem;
-        }
-        .old-price {
-          color: #999 !important;
-          text-decoration: line-through !important;
-        }
-      `;
-      document.head.appendChild(styles);
-    }
-
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
 
@@ -808,6 +730,34 @@ document.addEventListener('DOMContentLoaded', function() {
       requestAnimationFrame(() => {
         modal.style.opacity = '1';
       });
+    });
+
+    // Pinch-to-zoom support
+    let scale = 1;
+    let startDistance = 0;
+    let translateX = 0;
+    let translateY = 0;
+    const modalImage = modal.querySelector('img');
+
+    modalImage.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 2) {
+        startDistance = Math.hypot(
+          e.touches[0].pageX - e.touches[1].pageX,
+          e.touches[0].pageY - e.touches[1].pageY
+        );
+      }
+    });
+
+    modalImage.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const distance = Math.hypot(
+          e.touches[0].pageX - e.touches[1].pageX,
+          e.touches[0].pageY - e.touches[1].pageY
+        );
+        scale = Math.min(Math.max(1, (distance / startDistance) * scale), 4);
+        modalImage.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+      }
     });
   };
 
@@ -938,7 +888,6 @@ document.addEventListener('DOMContentLoaded', function() {
       animateElement(wilayaSelect, 'pulse');
     });
     
-    // Only call checkFormValidity on products page
     if (isProductsPage && typeof checkFormValidity === 'function') {
       checkFormValidity();
     }

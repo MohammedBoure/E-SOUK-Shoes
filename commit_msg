@@ -1,6 +1,7 @@
-feat(order): generate UUID on client-side and send with order insert
+fix(form): make size/color optional when no options available and enhance image zoom
 
-- Orders are now assigned UUIDs in the browser using crypto.randomUUID()
-- Ensures that users cannot access or guess others' order IDs
-- Removed .select('id') after insert, as UUID is now controlled by the frontend
-- Improved frontend/backend separation and security for anonymous submissions
+- Modified checkFormValidity to make size and color fields optional when no options or only one option exists, mandatory otherwise
+- Updated setupEnhancedCarousel to remove zoom button and add direct image click for modal
+- Enhanced openImageModal/closeImageModal with pinch-to-zoom support (up to 4x) for mobile devices
+- Added separate zoom.css for modal styles to avoid impacting existing UI
+- Ensured no changes to products.css or UI structure

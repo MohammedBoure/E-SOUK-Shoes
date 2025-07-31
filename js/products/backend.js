@@ -49,12 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return false;
       }
 
-      if (!size || !color) {
-        alert('يرجى تحديد حجم ولون الحذاء.');
-        window.frontend.disableSubmitButton(false);
-        return false;
-      }
-
       try {
         const orderId = crypto.randomUUID(); // 🔑 توليد UUID
         const stateId = parseInt(wilaya.split(' - ')[0]);
