@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طلب منتج - إي سوق</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/products.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="/static/logo.png" alt="E-SOUQ Logo">
+        <h1>E-SOUQ</h1>
+      </div>
+      <button class="menu-toggle">☰</button>
+      <nav class="nav">
+        <a href="index.html" class="active">الرئيسية</a>
+        <a href="about.html">من نحن</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container my-5">
+    <section id="carouselSection">
+      <h2 class="section-header">طلب المنتج</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div id="carousel" class="carousel slide">
+            <div class="carousel-inner" id="carouselImages"></div>
+            <div class="carousel-indicators" id="carouselIndicators"></div>
+            <button class="carousel-control-prev carousel-btn prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">❮</button>
+            <button class="carousel-control-next carousel-btn next" type="button" data-bs-target="#carousel" data-bs-slide="next">❯</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="orderSection" class="form-section mt-5">
+      <h1 id="productName">جارٍ تحميل المنتج...</h1>
+      <p id="productDescription"></p>
+      <p id="productPrice" class="price"></p>
+      <h2 class="section-header">معلومات الطلب</h2>
+      <form id="orderForm" class="row g-3">
+        <div class="col-md-6">
+          <label for="customer_name" class="form-label">الإسم</label>
+          <input type="text" class="form-control" id="customer_name" required>
+        </div>
+        <div class="col-md-6">
+          <label for="phone" class="form-label">رقم الهاتف</label>
+          <input type="tel" class="form-control" id="phone" required>
+        </div>
+        <div class="col-md-6">
+          <label for="wilaya" class="form-label">الولاية</label>
+          <select class="form-select" id="wilaya" required>
+            <option value="">اختر الولاية</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="commune" class="form-label">البلدية</label>
+          <select class="form-select" id="commune" required disabled>
+            <option value="">اختر البلدية</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="delivery_type" class="form-label">نوع التوصيل</label>
+          <select class="form-select" id="delivery_type" required>
+            <option value="توصيل لباب المنزل">توصيل لباب المنزل</option>
+            <option value="توصيل إلى مكتب التوصيل">توصيل إلى مكتب التوصيل</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">الكمية</label>
+          <div class="input-group">
+            <button type="button" class="btn btn-outline-secondary" id="increaseQuantity">+</button>
+            <input type="text" class="form-control text-center" id="units" value="1" readonly>
+            <button type="button" class="btn btn-outline-secondary" id="decreaseQuantity">-</button>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">الحجم</label>
+          <div id="sizeButtons" class="btn-group" role="group"></div>
+          <input type="hidden" id="size" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">اللون</label>
+          <div id="colorButtons" class="btn-group" role="group"></div>
+          <input type="hidden" id="color" required>
+        </div>
+        <div class="col-12 product-info mt-4">
+          <p id="productPriceSummary" class="price"></p>
+          <p id="deliveryPrice" class="text-muted">سعر التوصيل: يتم حسابه بعد اختيار الولاية</p>
+          <p id="totalPrice" class="price fw-bold text-success">السعر الكلي: 0 دج</p>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary w-100" id="submitBtn" disabled>إرسال الطلب</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="otherProductsSection" class="mt-5">
+      <h2 class="section-header">منتجات أخرى قد تعجبك</h2>
+      <div class="row" id="otherProducts"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content container">
+      <h2>تواصلوا معنا</h2>
+      <p>الهاتف: <a href="tel:+213558815453">+213 558 815 453</a></p>
+      <p>فيسبوك: <a href="#">صفحتنا الرسمية</a></p>
+      <p>إنستغرام: <a href="#">حسابنا الرسمي</a></p>
+      <p class="developer-credit">تم تطوير الموقع بواسطة: اسم المبرمج</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="js/config.js"></script>
+  <script type="module" src="js/products/backend.js"></script>
+  <script type="module" src="js/products/frontend.js"></script>
+</body>
+</html>

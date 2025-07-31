@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إي سوق - الرئيسية</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="/static/logo.png" alt="E-SOUQ Logo">
+        <h1>E-SOUQ</h1>
+      </div>
+      <button class="menu-toggle">☰</button>
+      <nav class="nav">
+        <a href="index.html" class="active">الرئيسية</a>
+        <a href="about.html">من نحن</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2 class="section-header">المنتجات</h2>
+      <div class="products-grid" id="productsGrid">
+        <!-- Products will be loaded dynamically -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <h2>تواصلوا معنا</h2>
+      <p>الهاتف: <a href="tel:+213123456789">+213 123 456 789</a></p>
+      <p>فيسبوك: <a href="#">صفحتنا الرسمية</a></p>
+      <p>إنستغرام: <a href="#">حسابنا الرسمي</a></p>
+      <p class="developer-credit">تم تطوير الموقع بواسطة: اسم المبرمج</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="/js/index.js"></script>
+</body>
+</html>

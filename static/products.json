@@ -1,0 +1,63 @@
+{
+  "1": {
+    "name": "أحذية الجري الذكية",
+    "description": "أحذية جري عالية الجودة مع توسيد ذكي وتصميم عصري.",
+    "priceBeforeDiscount": 8000,
+    "priceAfterDiscount": 5990,
+    "sizes": [39, 40, 41, 42, 43, 44],
+    "colors": ["#000000", "#808080", "#FF0000"],
+    "images": [
+      "https://cdn.techinasia.com/wp-content/uploads/2015/07/Xiaomi-unveils-smart-running-shoes-with-Li-Ning-photo-1.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0-o2KS97MAX7pjpwnEgvtW_yg6Ch1MyIwvB6ok5dsoEnb0LFnDMuulwR4vT91N7W_5Kg&usqp=CAU",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRg4Ixjp35YVxjFi8rSeW2zyX1-rnonP1mWcV2G67goqa-3n2v8exxjHe6MPq-8fbceP-M&usqp=CAU"
+    ]
+  },
+  "2": {
+    "name": "سنيكرز كاجوال بدون رباط",
+    "description": "أحذية مريحة بتصميم شبكي يسمح بالتهوية وسهولة الارتداء.",
+    "priceBeforeDiscount": 5000,
+    "priceAfterDiscount": 3500,
+    "sizes": [38, 39, 40, 41, 42],
+    "colors": ["#FFFFFF", "#0000FF", "#F5F5DC"],
+    "images": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4VN2YQu3xKKawglISLZWqIKSE95iSmZ5TyQ&s",
+      "https://m.media-amazon.com/images/I/51qrbH5rqBL._AC_UL240_SR240,220_.jpg"
+    ]
+  },
+  "3": {
+    "name": "أحذية الأداء للطرق الوعرة",
+    "description": "أحذية مصممة بدقة لعشاق الجري في الطبيعة بقبضة قوية.",
+    "priceBeforeDiscount": 3000,
+    "priceAfterDiscount": 2200,
+    "sizes": [40, 41, 42, 43],
+    "colors": ["#000000", "#008000", "#FFA500"],
+    "images": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXj-L_Nwjbsihz_RwKaoowki-Br8CrsahSRw&s",
+      "https://www.grouperossignol.com/wp-content/uploads/2024/08/RNNMA70_316_RGB300DPI_01-1400x1400-58a90e13-2e48-4aa3-8960-d67255a2c115-300x300.jpg"
+    ]
+  },
+  "4": {
+    "name": "أحذية تسلق مقاومة للماء",
+    "description": "أحذية متينة بطبقة مقاومة للماء، مثالية للتنزه والاستخدام الشاق.",
+    "priceBeforeDiscount": 6500,
+    "priceAfterDiscount": 4900,
+    "sizes": [41, 42, 43, 44, 45],
+    "colors": ["#8B4513", "#006400", "#808080"],
+    "images": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLj7HQAnbzLBCn-tWhUko9k8VygRLJgjbHcA&s",
+      "https://cdn.shopify.com/s/files/1/0659/9639/0655/files/a4efd101a3c9833e4a54b9024bfa8af2f55486f0.jpg?v=1687268027"
+    ]
+  },
+  "5": {
+    "name": "لوفرز أنيقة للمكتب",
+    "description": "أحذية جلدية أنيقة مثالية للزي الرسمي والعمل.",
+    "priceBeforeDiscount": 4000,
+    "priceAfterDiscount": 2990,
+    "sizes": [39, 40, 41, 42, 43],
+    "colors": ["#000000", "#8B4513", "#000080"],
+    "images": [
+      "https://m.media-amazon.com/images/I/61yMpO8Cf9L._UF1000,1000_QL80_.jpg",
+      "https://www.jiomart.com/images/product/original/rvyg1hawpo/rzisbo-loafers-shoes-for-men-black-product-images-rvyg1hawpo-0-202302081659.jpg?im=Resize=(1000,1000)"
+    ]
+  }
+}
